@@ -1,5 +1,7 @@
 import React from 'react'
 import './Phone.css'
+import Rating from '../../Rating/Rating'
+import {Link} from 'react-router-dom'
 
 import { Card, Button } from 'react-bootstrap'
 
@@ -22,6 +24,9 @@ const phone = (props) => {
         <Card.Text>
           <b>Stock</b>: {props.stock}
         </Card.Text>
+        <Link to={props.link}>
+          <Rating rating={props.rating}/>
+        </Link>
         {props.stock > 0 ?
           <Button variant='primary'>Add to basket</Button>
           : <Button variant='danger'>Out of stock</Button>}

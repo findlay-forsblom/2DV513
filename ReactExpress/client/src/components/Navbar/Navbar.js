@@ -2,6 +2,9 @@ import React from 'react'
 import './Navbar.css'
 
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 
 const navbar = (props) => {
   return (
@@ -20,6 +23,10 @@ const navbar = (props) => {
             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
           </NavDropdown>
         </Nav>
+        <Link to="/shoppingBasket">
+        <span class="badge badge-danger ml-2" id="notis" style ={{ cursor: 'pointer' }}>5</span>
+        <FontAwesomeIcon style ={{ fontSize: '1.5em', color: 'white', cursor: 'pointer' }} icon={faShoppingCart} />
+        </Link>
         <Nav>
           <Nav.Link href="#deets">More deets</Nav.Link>
           <Nav.Link eventKey={2} href="#memes">

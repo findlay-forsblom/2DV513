@@ -1,37 +1,24 @@
 import React, { Component } from 'react'
 import logo from '../logo.svg'
 import './App.css'
-import Phone from '../components/Phone/Phone'
 import Navbar from '../components/Navbar/Navbar'
-import { Container, Row } from 'react-bootstrap'
-import Phones from '../components/Phones/Phones'
-
-class App extends Component {
-  componentDidMount () {
-    window.fetch('./products')
-    .then(res => res.json())
-    .then(phones =>  this.setState({
-      phones
-    }) )
-  }
-
-  state = {
-    phones: []
-  };
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Home from '../components/Home/Home'
+import ShoppingCart from '../components/ShoppingCart/ShoppingCart'
+import Comments from '../components/Comments/Comments'
 
 
-  render () {
+const app = (props) => {
     return (
       <div>
-        <Navbar />
-        <Container>
-          <Row>
-          <Phones phones = {this.state.phones}></Phones>
-          </Row>
-        </Container>
+        <Router>
+          <Navbar />
+          <Route path="/shoppingBasket" component = {ShoppingCart}/>
+          <Route exact path ="/" component = {Home}/>
+          <Route path= "/comments/:id" component = {Comments}/>
+        </Router>
       </div>
     )
-  }
 }
 
-export default App
+export default app
