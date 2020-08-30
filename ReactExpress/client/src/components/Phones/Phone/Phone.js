@@ -19,7 +19,7 @@ const phone = (props) => {
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
         <Card.Text>
-          <b>Price</b>: {props.price}
+          <b>Price</b>: ${props.price}
         </Card.Text>
         <Card.Text>
           <b>Stock</b>: {props.stock}
@@ -28,7 +28,7 @@ const phone = (props) => {
           <Rating rating={props.rating}/>
         </Link>
         {props.stock > 0 ?
-          <Button variant='primary'>Add to basket</Button>
+          <Button variant='primary' onClick={props.handleClick}>Add to basket</Button>
           : <Button variant='danger'>Out of stock</Button>}
       </Card.Body>
     </Card>

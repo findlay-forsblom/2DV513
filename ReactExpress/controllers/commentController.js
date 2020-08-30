@@ -9,7 +9,6 @@ controller.getComments = async (req, res, next) => {
   JOIN Reveiwer as Cust on Cust.id_reveiwer = Com.reviewer_id
   Where Com.product_id = ${id}
   ;`
-  console.log(sql)
   const regex = /\\/g
   db.query(sql, (err, results) => {
     if (err) throw err
@@ -17,7 +16,7 @@ controller.getComments = async (req, res, next) => {
       element.created = moment(element.created).calendar()
       element.title = unescape(element.title.replace(regex, ''))
     })
-    res.send({lol: 'lol'})
+    res.send(results)
   })
 }
 

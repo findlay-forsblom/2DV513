@@ -5,8 +5,9 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
+import MyContext from '../../contexts/Mycontext'
 
-const navbar = (props) => {
+export const navbar = (props) => {
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
       <Navbar.Brand href='#home'>React-Bootstrap</Navbar.Brand>
@@ -24,7 +25,12 @@ const navbar = (props) => {
           </NavDropdown>
         </Nav>
         <Link to="/shoppingBasket">
-        <span class="badge badge-danger ml-2" id="notis" style ={{ cursor: 'pointer' }}>5</span>
+        <MyContext.Consumer>
+  {value => (
+    value.state.basket == 0 ?
+    null :
+    <span class="badge badge-danger ml-2" id="notis" style ={{ cursor: 'pointer' }}>{value.state.basket}</span>)}
+</MyContext.Consumer>
         <FontAwesomeIcon style ={{ fontSize: '1.5em', color: 'white', cursor: 'pointer' }} icon={faShoppingCart} />
         </Link>
         <Nav>

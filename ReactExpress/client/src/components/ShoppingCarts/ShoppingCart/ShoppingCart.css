@@ -1,0 +1,10 @@
+body {
+	margin-top: 20px;
+}
+
+
+@media (min-width: 576px) {
+  div.col-sm-10 {
+    padding-left: 50px;
+  }
+}

@@ -22,6 +22,7 @@ app.use(bodyParser.json())
 
 app.use('/products', require('./routes/productRouter.js'))
 app.use('/comments', require('./routes/commentRouter.js'))
+app.use('/orders', require('./routes/orderRouter'))
 
 
 app.listen(port, () => console.log('Server running at http://localhost:' + port))

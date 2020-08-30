@@ -10,7 +10,6 @@ controller.getProducts = async (req, res, next) => {
 }
 
 controller.orderBy = async (req, res, next) => {
-  console.log('I am here lol 3')
   const col = req.body.sort
   const order = req.body.order
 
@@ -18,9 +17,7 @@ controller.orderBy = async (req, res, next) => {
   db.query(sql, (err, results) => {
     if (err) throw err
     res.send(results)
-    // console.log(results)
   })
-
 }
 
 module.exports = controller
