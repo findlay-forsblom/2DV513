@@ -63,6 +63,7 @@ for i in brands:
 
 cursor.executemany(add_brands, all_brands)
 myDb.commit()
+print('Inserted All Brands')
 
 
 
@@ -87,6 +88,7 @@ for i in range(rows):
 add_products = queryGenForInsert('Product', columns)
 cursor.executemany(add_products, all_products)
 myDb.commit()
+print('Inserted Products Table')
 
 #Reveiewers table
 reviewers = np.unique(reviews['name'].to_numpy().astype(str)).tolist()
@@ -104,6 +106,7 @@ for i in reviewers:
 
 cursor.executemany(add_reviewers, all_reviewers)
 myDb.commit()
+print('Inserted Reviewers Table')
 
 
 #CommentsTable
@@ -152,8 +155,8 @@ for i in range(rows):
 
 cursor.executemany(add_comments, all_comments)
 myDb.commit()
-
-
+print('Inserted Comments Table')
+print('All Insert Complete Closing Database Connection')
 myDb.close()
 
 
