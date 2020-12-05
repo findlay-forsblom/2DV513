@@ -6,16 +6,26 @@ from datetime import datetime
 import re
 import dateutil.parser
 
-dataset = pd.read_csv('./Data/Amazon_Phones_Db/items.csv', delimiter=',')
-reviews = pd.read_csv('./Data/Amazon_Phones_Db/reviews.csv', delimiter=',')
+dataset = pd.read_csv('./Dataset/Amazon_Phones_Db/items.csv', delimiter=',')
+reviews = pd.read_csv('./Dataset/Amazon_Phones_Db/reviews.csv', delimiter=',')
 dataset.dropna(inplace= True)
 reviews.dropna(inplace= True)
-myDb = mysql.connector.connect(user='root',password='root1234',host='127.0.0.1', database="Phone_Db")
+
+#DU kommer förmodligen behöver ändrar denna
+myDb = mysql.connector.connect(user='root',password='root123456',host='127.0.0.1', database="Phone_Db")
 
 
 # Brands table
 brands = np.unique(dataset['brand'].to_numpy( dtype='S').astype(str)).tolist()
 
+
+def testIfAscii(str):
+    try:
+        str.encode('ascii')
+    except UnicodeEncodeError:
+        return False
+    else:
+        return True
 
 def queryGenForInsert(table, columns):
   str = 'INSERT INTO ' + table + ' ('
@@ -80,8 +90,6 @@ myDb.commit()
 
 #Reveiewers table
 reviewers = np.unique(reviews['name'].to_numpy().astype(str)).tolist()
-reviewers = [ names.encode('ascii', 'ignore').decode('ascii') for names in reviewers ]
-
 
 #Inserting reviewers to databse
 columns = ['id_reveiwer','username']
@@ -90,8 +98,9 @@ key = 0
 all_reviewers = []
 
 for i in reviewers:
-    key+=1
-    all_reviewers.append((key, i))
+    if testIfAscii(i):
+        key += 1
+        all_reviewers.append((key, i))
 
 cursor.executemany(add_reviewers, all_reviewers)
 myDb.commit()
@@ -123,14 +132,16 @@ for i in range(rows):
 
     asin = comments.iloc[i,-1]
     query = 'SELECT id_products FROM Phone_Db.Product WHERE product_asin = "{}";'.format(asin)
-    mycursor_Select.execute((query))
+    mycursor_Select.execute(query)
     records = mycursor_Select.fetchall()
 
     if records:
         product_id = records[0][0]
         user = comments.iloc[i,-2]
+        if not testIfAscii(user):
+            continue
         query = 'SELECT id_reveiwer FROM Phone_Db.Reveiwer WHERE username = "{}";'.format(user)
-        mycursor_Select.execute((query))
+        mycursor_Select.execute(query)
         records = mycursor_Select.fetchall()
 
         if records:
