@@ -26,23 +26,23 @@ const Phones = (props) => {
     setBasket(items)
   }
 
-  let count = 0
+
+  const allPhones = props.phones
+  const selectedPhones = allPhones.filter((x, i) => i >= props.startIndex && i <= props.stopIndex)
+  console.log(props.phones)
+  console.log(selectedPhones)
 
   return (
-    props.phones.map((phone) => {
-      if (count < 8) {
-        console.log(count)
-        count++
-        return <Phone
-        name={phone.name}
-        img={phone.img_url}
-        price={phone.price}
-        stock={phone.stock}
-        rating={phone.rating}
-        key={phone.id_products}
-        handleClick={handleBasket.bind(this, phone.id_products)}
-        link={`/comments/${phone.id_products}`}/>
-      }
+    selectedPhones.map((phone) => {
+      return <Phone
+      name={phone.name}
+      img={phone.img_url}
+      price={phone.price}
+      stock={phone.stock}
+      rating={phone.rating}
+      key={phone.id_products}
+      handleClick={handleBasket.bind(this, phone.id_products)}
+      link={`/comments/${phone.id_products}`}/>
     }
     )
   )

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './Home.css'
+import './materialize.css'
 import { Container, Row } from 'react-bootstrap'
 import Phones from '../Phones/Phones'
 import Pagination from '../Pagination/Pagination'
@@ -21,6 +22,8 @@ const dict = {
     order: 'DESC'
   }
 }
+
+const PHONES_PER_PAGE = 8
 
 class Home extends Component {
   componentDidMount () {
@@ -61,16 +64,34 @@ class Home extends Component {
   }
 
   state = {
-    phones: []
+    phones: [],
+    currentPage: 1,
+    startIndex: 0,
+    stopIndex: PHONES_PER_PAGE -1
   };
 
+  changeCurrentPage (page) {
+    this.setState({currentPage: page})
+  }
+
   render () {
+
+    const style = {
+      fontSize: '15px',
+      fontWeight: '600',
+    }
+    if (this.state.phones.length > 0 && this.state.currentPage > 1) {
+      this.setState({startIndex: (this.state.currentPage - 1) * 8})
+      this.setState({stopIndex: (this.state.startIndex + PHONES_PER_PAGE -1 )})
+    }
+
+    const noOfPages = this.state.phones.length / PHONES_PER_PAGE
     return (
       <Container>
       <Row>
       <div>
-      <label for="cars">Order by</label>
-      <select id="sort" onChange= {this.fetchByOrder.bind(this)} >
+      <label style = {style} for="cars">Order by</label>
+      <select className = "browser-default" id="sort" onChange= {this.fetchByOrder.bind(this)} >
         <option value="0">Price ascending</option>
         <option value="1">Price descending</option>
         <option value="2">Alphabetical Order ascending</option>
@@ -79,9 +100,9 @@ class Home extends Component {
       </div>
       </Row>
       <Row>
-      <Phones phones = {this.state.phones}></Phones>
+      <Phones phones = {this.state.phones} startIndex = {this.state.startIndex} stopIndex = {this.state.stopIndex}></Phones>
       </Row>
-      <Pagination></Pagination>
+      <Pagination currentPage = {this.state.currentPage} noPages = {noOfPages}></Pagination>
     </Container>
     )
   }
