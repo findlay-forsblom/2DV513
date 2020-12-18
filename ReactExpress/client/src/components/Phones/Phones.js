@@ -26,9 +26,14 @@ const Phones = (props) => {
     setBasket(items)
   }
 
+  let count = 0
+
   return (
     props.phones.map((phone) => {
-      return <Phone
+      if (count < 8) {
+        console.log(count)
+        count++
+        return <Phone
         name={phone.name}
         img={phone.img_url}
         price={phone.price}
@@ -37,6 +42,7 @@ const Phones = (props) => {
         key={phone.id_products}
         handleClick={handleBasket.bind(this, phone.id_products)}
         link={`/comments/${phone.id_products}`}/>
+      }
     }
     )
   )

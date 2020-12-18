@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Home.css'
 import { Container, Row } from 'react-bootstrap'
 import Phones from '../Phones/Phones'
+import Pagination from '../Pagination/Pagination'
 
 const dict = {
   0: {
@@ -80,6 +81,7 @@ class Home extends Component {
       <Row>
       <Phones phones = {this.state.phones}></Phones>
       </Row>
+      <Pagination></Pagination>
     </Container>
     )
   }
