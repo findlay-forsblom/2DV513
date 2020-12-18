@@ -29,7 +29,8 @@ const Phones = (props) => {
 
   const allPhones = props.phones
   const selectedPhones = allPhones.filter((x, i) => i >= props.startIndex && i <= props.stopIndex)
-  console.log(props.phones)
+  console.log(props.startIndex)
+  console.log(props.stopIndex)
   console.log(selectedPhones)
 
   return (

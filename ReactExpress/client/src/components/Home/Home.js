@@ -70,8 +70,16 @@ class Home extends Component {
     stopIndex: PHONES_PER_PAGE -1
   };
 
-  changeCurrentPage (page) {
-    this.setState({currentPage: page})
+  changeCurrentPage = (event) =>{
+    const page = event.target.innerText
+    console.log(page)
+    const start = (page - 1) * 8
+    console.log(this)
+    this.setState({
+      currentPage: parseInt(page, 10),
+      startIndex: start,
+      stopIndex: (start+ PHONES_PER_PAGE -1 )
+    })
   }
 
   render () {
@@ -79,10 +87,6 @@ class Home extends Component {
     const style = {
       fontSize: '15px',
       fontWeight: '600',
-    }
-    if (this.state.phones.length > 0 && this.state.currentPage > 1) {
-      this.setState({startIndex: (this.state.currentPage - 1) * 8})
-      this.setState({stopIndex: (this.state.startIndex + PHONES_PER_PAGE -1 )})
     }
 
     const noOfPages = this.state.phones.length / PHONES_PER_PAGE
@@ -102,7 +106,7 @@ class Home extends Component {
       <Row>
       <Phones phones = {this.state.phones} startIndex = {this.state.startIndex} stopIndex = {this.state.stopIndex}></Phones>
       </Row>
-      <Pagination currentPage = {this.state.currentPage} noPages = {noOfPages}></Pagination>
+      <Pagination currentPage = {this.state.currentPage} noPages = {noOfPages} onChange= {this.changeCurrentPage}></Pagination>
     </Container>
     )
   }
