@@ -28,8 +28,8 @@ const phone = (props) => {
           <Rating rating={props.rating}/>
         </Link>
         {props.stock > 0 ?
-          <Button variant='primary' onClick={props.handleClick}>Add to basket</Button>
-          : <Button variant='danger'>Out of stock</Button>}
+          <Button variant='primary btn-sm' style = {{padding : '0.25rem 0.2rem'}} onClick={props.handleClick}>Add to basket</Button>
+          : <Button variant='danger btn-sm'>Out of stock</Button>}
       </Card.Body>
     </Card>
   )
