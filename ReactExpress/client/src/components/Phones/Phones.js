@@ -26,12 +26,8 @@ const Phones = (props) => {
     setBasket(items)
   }
 
-
   const allPhones = props.phones
   const selectedPhones = allPhones.filter((x, i) => i >= props.startIndex && i <= props.stopIndex)
-  console.log(props.startIndex)
-  console.log(props.stopIndex)
-  console.log(selectedPhones)
 
   return (
     selectedPhones.map((phone) => {

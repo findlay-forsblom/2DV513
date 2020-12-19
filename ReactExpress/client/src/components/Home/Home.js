@@ -89,13 +89,14 @@ class Home extends Component {
       fontWeight: '600',
     }
 
-    const noOfPages = this.state.phones.length / PHONES_PER_PAGE
+    const noOfPages = Math.ceil( this.state.phones.length / PHONES_PER_PAGE)
     return (
       <Container>
       <Row>
       <div>
-      <label style = {style} for="cars">Order by</label>
-      <select className = "browser-default" id="sort" onChange= {this.fetchByOrder.bind(this)} >
+      <label style = {style} htmlFor="cars">Order by</label>
+      <select className = "browser-default" defaultValue="hej" id="sort" onChange= {this.fetchByOrder.bind(this)} >
+      <option value="" disabled selected>Choose your option</option>
         <option value="0">Price ascending</option>
         <option value="1">Price descending</option>
         <option value="2">Alphabetical Order ascending</option>
