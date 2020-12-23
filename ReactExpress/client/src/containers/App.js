@@ -8,7 +8,8 @@ import ShoppingCarts from '../components/ShoppingCarts/ShoppingCarts'
 import Comments from '../components/Comments/Comments'
 import MyContext from '../contexts/Mycontext'
 import Checkout from '../components/Checkout/Checkout'
-
+import CompleteOrder from '../components/CompleteOrder/CompleteOrder'
+import OrderHistory from '../components/OrderHistory/OrderHistory'
 
 class App extends Component {
   state = {
@@ -34,6 +35,8 @@ class App extends Component {
           <Route exact path ="/" component = {Home}/>
           <Route path= "/comments/:id" component = {Comments}/>
           <Route path="/checkout" component ={Checkout}/>
+          <Route path="/completeOrder" component ={CompleteOrder}/>
+          <Route path="/orderHistory" component ={OrderHistory}/>
         </Router>
         </MyContext.Provider>
       </div>
