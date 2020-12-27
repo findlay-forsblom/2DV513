@@ -28,7 +28,7 @@ const phone = (props) => {
           <Rating rating={props.rating}/>
         </Link>
         {props.stock > 0 ?
-          <Button variant='primary btn-sm' style = {{padding : '0.25rem 0.2rem'}} onClick={props.handleClick}>Add to basket</Button>
+          <a href='#'><Button variant='primary btn-sm' style = {{padding : '0.25rem 0.2rem'}} onClick={props.handleClick}>Add to basket</Button></a>
           : <Button variant='danger btn-sm'>Out of stock</Button>}
       </Card.Body>
     </Card>

@@ -11,6 +11,10 @@ import Checkout from '../components/Checkout/Checkout'
 import CompleteOrder from '../components/CompleteOrder/CompleteOrder'
 import OrderHistory from '../components/OrderHistory/OrderHistory'
 
+import Orders from '../components/Orders/Order'
+
+
+
 class App extends Component {
   state = {
     basket: 0,
@@ -35,8 +39,12 @@ class App extends Component {
           <Route exact path ="/" component = {Home}/>
           <Route path= "/comments/:id" component = {Comments}/>
           <Route path="/checkout" component ={Checkout}/>
+
           <Route path="/completeOrder" component ={CompleteOrder}/>
           <Route path="/orderHistory" component ={OrderHistory}/>
+
+          <Route path="/myOrders" component = {Orders}/>
+
         </Router>
         </MyContext.Provider>
       </div>
