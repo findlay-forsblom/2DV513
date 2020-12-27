@@ -1,19 +1,52 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './OrderHistory.css'
 import MyContext from '../../contexts/Mycontext'
 
-const OrderHistory = (req, res, err) => {
+const OrderHistory = (props) => {
   const contextValue = useContext(MyContext)
+  const [orders, setOrders] = useState([])
+  console.log(contextValue.orderHistory)
 
-  var email = contextValue.orderHistory
-  var orders = "No orders"
+  //var email = contextValue.orderHistory
+  let email = contextValue.state.currentEmail
+  // var orders = "No orders"
+  // setOrders('No orders')
 
-  if(req.location.data){
-    email = email ? email : req.location.data.email
-    orders = req.location.data.orders
-  }
+  useEffect(() => {
+    // Update the document title using the browser API
+    fetch('./orders/fetchHistory', {
+      method: "post",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    
+      // Serialize json body.
+      body: JSON.stringify({
+        email: email
+      })
+    })
+    .then( (response) => {
+      return response.json()
+    }).then(res => {
+      // Go to history page.
+      console.log(res)
+      setOrders(res.msg)
+    });
+    
+  }, [])
 
-  contextValue.orderHistory = email
+  // if(props.location.data){
+  //   email = email ? email : props.location.data.email
+  //   orders = props.location.data.orders
+  //   console.log(orders)
+  // } else {
+  //   console.log('i am here')
+  // }
+
+  // contextValue.orderHistory = email
+  // const changeCurrentEmail = contextValue.state.changeCurrentEmail
+  // changeCurrentEmail(email)
   
   return (
   <div className="row">

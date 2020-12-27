@@ -24,7 +24,7 @@ export const navbar = (props) => {
         <FontAwesomeIcon style ={{ fontSize: '1.5em', color: 'white', cursor: 'pointer' }} icon={faShoppingCart} />
         </Link>
         <Nav>
-          <Nav.Link href="#deets"><Link to="/myOrders">My Orders</Link></Nav.Link>
+          <Nav.Link><Link to="/orderHistory">My Orders</Link></Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

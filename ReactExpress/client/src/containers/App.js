@@ -24,10 +24,15 @@ class App extends Component {
     items: [],
     setItems: (item) => this.setState({
       items: item
+    }),
+    currentEmail: window.localStorage.getItem('currentEmail')?window.localStorage.getItem('currentEmail'): '',
+    changeCurrentEmail:(email) => this.setState({
+      currentEmail: email
     })
   }
 
   render() {
+  
     return (
       <div>
         <MyContext.Provider value={{

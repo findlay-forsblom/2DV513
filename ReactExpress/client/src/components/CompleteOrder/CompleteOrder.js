@@ -3,19 +3,26 @@ import { useHistory } from "react-router"
 import './CompleteOrder.css'
 import MyContext from '../../contexts/Mycontext'
 
-const CompleteOrder = (req, res, err) => {
+const CompleteOrder = (props) => {
   let history = useHistory()
   const contextValue = useContext(MyContext)
   var email = "No email available."
+  console.log(props)
+  console.log(contextValue.orderHistory)
 
-  if(req.location.state){
-    email = req.location.state.email 
+  if(props.location.state){
+    email = props.location.state.email 
+    const myStorage = window.localStorage
+    myStorage.setItem('currentEmail', email)
   }
 
   const save = (e) => {
     e.preventDefault()
 
-    contextValue.orderHistory = email
+    const changeCurrentEmail = contextValue.state.changeCurrentEmail
+    changeCurrentEmail(email)
+
+    // contextValue.orderHistory = email
     
     // Fetch order history and go to history page.
     fetch('./orders/fetchHistory', {
