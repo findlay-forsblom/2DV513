@@ -17,6 +17,7 @@ const ShoppingCarts = (props) => {
     items.forEach(item => {
       total += item.price * item.quantity
     })
+    contextValue.state.total = total
     return total
   }
 

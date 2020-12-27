@@ -1,10 +1,14 @@
 import React, {useContext} from 'react'
+import { useHistory } from "react-router"
 import './Checkout.css'
 import MyContext from '../../contexts/Mycontext'
 
 const Checkout = () => {
+  let history = useHistory()
+
   const contextValue = useContext(MyContext)
   const basketItems = contextValue.state.items
+  const total = contextValue.state.total
   console.log(basketItems)
 
   const save = (e) => {
@@ -33,7 +37,8 @@ const Checkout = () => {
         city,
         state,
         zip,
-        basketItems
+        basketItems,
+        total
       })
     })
     .then( (response) => {
@@ -41,7 +46,9 @@ const Checkout = () => {
       return response.json()
 
     }).then(res => {
-      console.log(res)
+      history.push({pathname: "/completeOrder",
+        state: {email: email, total: contextValue.state.total}
+      })
     })
   }
   return (
@@ -58,7 +65,7 @@ const Checkout = () => {
             <label htmlFor="lname"><i className="fa fa-user"></i> Last Name</label>
             <input type="text" id="lname" name="lastname" placeholder="Doe"/>
             <label htmlFor="email"><i className="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com"/>
+            <input type="email" id="email" name="email" placeholder="john@example.com"/>
             <label htmlFor="adr"><i className="fa fa-address-card-o"></i> Address</label>
             <input type="text" id="adr" name="address" placeholder="542 W. 15th Street"/>
             <label htmlFor="city"><i className="fa fa-institution"></i> City</label>
