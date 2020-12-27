@@ -8,6 +8,7 @@ import ShoppingCarts from '../components/ShoppingCarts/ShoppingCarts'
 import Comments from '../components/Comments/Comments'
 import MyContext from '../contexts/Mycontext'
 import Checkout from '../components/Checkout/Checkout'
+import Orders from '../components/Orders/Order'
 
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
           <Route exact path ="/" component = {Home}/>
           <Route path= "/comments/:id" component = {Comments}/>
           <Route path="/checkout" component ={Checkout}/>
+          <Route path="/myOrders" component = {Orders}/>
         </Router>
         </MyContext.Provider>
       </div>
