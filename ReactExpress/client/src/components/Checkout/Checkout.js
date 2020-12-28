@@ -9,7 +9,10 @@ const Checkout = () => {
   const contextValue = useContext(MyContext)
   const basketItems = contextValue.state.items
   const total = contextValue.state.total
-  console.log(basketItems)
+  console.log(contextValue.state, "Context value")
+
+  const changeBasket = contextValue.state.changeBasket
+  const setBasket = contextValue.state.setItems
 
   const save = (e) => {
     e.preventDefault()
@@ -46,6 +49,8 @@ const Checkout = () => {
       return response.json()
 
     }).then(res => {
+      changeBasket(0)
+      setBasket([])
       history.push({pathname: "/completeOrder",
         state: {email: email, total: contextValue.state.total}
       })

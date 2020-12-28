@@ -9,6 +9,7 @@ const CompleteOrder = (props) => {
   var email = "No email available."
   console.log(props)
   console.log(contextValue.orderHistory)
+  console.log(contextValue.state, "THE STATE OF VALUE")
 
   if(props.location.state){
     email = props.location.state.email 

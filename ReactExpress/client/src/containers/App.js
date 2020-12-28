@@ -32,7 +32,7 @@ class App extends Component {
   }
 
   render() {
-  
+    console.log(this.state, " MY STATE")
     return (
       <div>
         <MyContext.Provider value={{

@@ -22,15 +22,21 @@ const Phones = (props) => {
       items.push({ name, id, quantity: 1, price, img })
     }
     const setBasket = contextValue.state.setItems
-    changeBasket(items.length)
+    let itemCounter = 0
+    console.log(items)
+
+    for(let i = 0; i<items.length; i++){
+      itemCounter += items[i].quantity
+    }
+    changeBasket(itemCounter)
     setBasket(items)
   }
 
   const allPhones = props.phones
-  const selectedPhones = allPhones.filter((x, i) => i >= props.startIndex && i <= props.stopIndex)
+  //const selectedPhones = allPhones.filter((x, i) => i >= props.startIndex && i <= props.stopIndex)
 
   return (
-    selectedPhones.map((phone) => {
+    allPhones.map((phone) => {
       return <Phone
       name={phone.name}
       img={phone.img_url}
