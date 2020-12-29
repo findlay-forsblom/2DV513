@@ -46,7 +46,7 @@ controller.insertOrder = async (req, res, next) => {
     res.send({ msg: 'Successful' })
   }catch(err){
     await sendQuery('ROLLBACK;')
-    res.status('500').send(err.message)
+    res.send(500, {error: err.message})
   }
 }
 
