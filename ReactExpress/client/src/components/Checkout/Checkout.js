@@ -45,14 +45,19 @@ const Checkout = () => {
       })
     })
     .then( (response) => {
-      // onsole.log(response.data())
-      return response.json()
-
+      if(response.ok){
+        return response.json()
+      }
+      throw new Error('PROBLEM')
     }).then(res => {
       changeBasket(0)
       setBasket([])
       history.push({pathname: "/completeOrder",
         state: {email: email, total: contextValue.state.total}
+      })
+    }).catch((error) => {
+      history.push({pathname: "/completeOrder",
+        state: {email: email, error: `Could not complete order at this time. Error: ${error.message}`}
       })
     })
   }

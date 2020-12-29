@@ -20,7 +20,7 @@ const shoppingCart = (props) => {
       </td>
       <td data-th="Price">${props.price}</td>
       <td data-th="Quantity">
-        <input type="number" class="form-control text-center" value={props.amount} onChange={props.handleAmount} />
+        <input type="number" class="form-control text-center" max={props.stock} min="0" value={props.amount} onChange={props.handleAmount} />
       </td>
       <td data-th="Subtotal" class="text-center">{props.price * props.amount}</td>
       <td class="actions" data-th="">

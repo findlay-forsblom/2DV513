@@ -10,7 +10,7 @@ import MyContext from '../../contexts/Mycontext'
 export const navbar = (props) => {
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
-      <Navbar.Brand href='#home'><Link to="/">React-Bootstrap</Link></Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">React-Bootstrap</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto"/>
@@ -24,7 +24,7 @@ export const navbar = (props) => {
         <FontAwesomeIcon style ={{ fontSize: '1.5em', color: 'white', cursor: 'pointer' }} icon={faShoppingCart} />
         </Link>
         <Nav>
-          <Nav.Link><Link to="/orderHistory">My Orders</Link></Nav.Link>
+          <Nav.Link as={Link} to="/orderHistory">My Orders</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

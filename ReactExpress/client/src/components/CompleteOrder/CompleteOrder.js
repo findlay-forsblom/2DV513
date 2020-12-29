@@ -17,6 +17,20 @@ const CompleteOrder = (props) => {
     myStorage.setItem('currentEmail', email)
   }
 
+  const insertInfo = () => {
+    if(props.location.state.error){
+      return(<div><div class="alert alert-danger" role="alert">
+      {props.location.state.error}
+      </div>
+      <h3>Order failed for <b>{email}</b>.</h3>
+      <p>Please try to place order again</p></div>)
+    } else {
+      return (<div><h3>Order completed.</h3>
+        <p>Order confirmation was not sent to <b>{email}</b> since this is a school project.</p>
+        <p>Thank you for the order!</p></div>)
+    }
+  }
+
   const save = (e) => {
     e.preventDefault()
 
@@ -54,9 +68,7 @@ const CompleteOrder = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-50 text-center">
-            <h3>Order completed.</h3>
-            <p>Order confirmation was not sent to <b>{email}</b> since this is a school project.</p>
-            <p>Thank you for the order!</p>
+            {insertInfo()}
             <form onSubmit={save}>
                 <input className="btn btn-warning" type="submit" value="Order history"></input>
                 <a className="btn btn-primary" href="/" role="button">Home</a>

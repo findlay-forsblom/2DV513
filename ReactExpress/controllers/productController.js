@@ -1,6 +1,14 @@
 const db = require('../config/db')
 const controller = {}
 
+controller.getBrands = async (req, res, next) => {
+  const sql = 'SELECT * FROM brand'
+  db.query(sql, (err, results) => {
+    if (err) throw err
+    res.send(results)
+  })
+}
+
 controller.getProducts = async (req, res, next) => {
   const sql = 'SELECT * FROM product WHERE price > 250'
   db.query(sql, (err, results) => {
@@ -14,13 +22,17 @@ controller.orderBy = async (req, res, next) => {
   const order = req.body.order
   const start = req.body.start
   const perPage = req.body.perPage
+  const brand = req.body.brand
 
-  console.log(start, perPage)
+  const orderStr = order == null ? '' : `ORDER BY ${col} ${order} `
+  const limitStr = perPage < 0 ? ';' : `LIMIT ${start}, ${perPage};`
+  const brandStr = brand == '' ? '' : `AND Brand_idBrand = ${brand} `
 
-  let totalPhones = 0
-  const sqlTotalPhones = `SELECT count(*) as total from Phone_Db.Product WHERE price > 250;`
+  // Query to get total number of phones, for pagination.
+  const sqlTotalPhones = `SELECT count(*) as total from Phone_Db.Product WHERE price > 250 ${brandStr};`
 
-  const sql = `SELECT * FROM Phone_Db.Product WHERE price > 250 ORDER BY ${col} ${order} LIMIT ${start}, ${perPage};`
+  // Query to get phone products.
+  const sql = `SELECT * FROM Phone_Db.Product WHERE price > 250 ${brandStr}${orderStr}${limitStr}`
   db.query(sql, (err, results) => {
     if (err) throw err
     db.query(sqlTotalPhones, (err, totalPhones) => {

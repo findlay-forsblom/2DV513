@@ -23,20 +23,31 @@ controller.fetchHistory = async (req, res, next) => {
  * Then inserts order into order table, followed by inserting each product into products table.
  */
 controller.insertOrder = async (req, res, next) => {
-  const customer = await handleCustomer(req)
-  const order = await handleOrder(customer[0].id_customer, req.body.total)
+  try{
+    await sendQuery('START TRANSACTION;')
+    const customer = await handleCustomer(req)
+    const order = await handleOrder(customer[0].id_customer, req.body.total)
+    
+    if (orderId = order.insertId) {
+      const basket = req.body.basketItems
   
-  if (orderId = order.insertId) {
-    const basket = req.body.basketItems
-
-    for (const i in basket) {
-      const item = basket[i]
-      if(item.quantity > 0) {
-        await handleProduct(item, orderId)
+      for (const i in basket) {
+        const item = basket[i]
+        if(item.quantity > 0) {
+          let result = await handleProduct(item, orderId)
+          if(result.affectedRows < 1){
+            throw new Error('Not enough products in stock.')
+          }
+        }
       }
     }
+
+    await sendQuery('COMMIT;')
+    res.send({ msg: 'Successful' })
+  }catch(err){
+    await sendQuery('ROLLBACK;')
+    res.status('500').send(err.message)
   }
-  res.send({ msg: 'Successful' })
 }
 
 /**
@@ -58,8 +69,14 @@ async function sendQuery(sql) {
  * Inserts customer to customer table if not available, then fetches customer id for next query.
  */
 async function handleCustomer(req) {
-  let sql = `INSERT IGNORE INTO Customer(firstname,lastname, address,state,postal_code,email)
-  VALUES('${req.body.firstname}','${req.body.lastname}', '${req.body.address}', '${req.body.state}', '${req.body.zip}', '${req.body.email}')`
+  let sql = `INSERT INTO Customer(firstname,lastname, address,state,postal_code,email)
+  VALUES('${req.body.firstname}','${req.body.lastname}', '${req.body.address}', '${req.body.state}', '${req.body.zip}', '${req.body.email}')
+  ON DUPLICATE KEY UPDATE
+  firstname = '${req.body.firstname}', 
+  lastname = '${req.body.lastname}', 
+  address = '${req.body.address}', 
+  state = '${req.body.state}', 
+  postal_code = '${req.body.zip}'`
   var result = await sendQuery(sql)
 
   sql = `SELECT id_customer FROM Customer WHERE email = '${req.body.email}'`
@@ -83,9 +100,16 @@ async function handleOrder(customerID, orderTotal) {
  * Inserts product into products table.
  */
 async function handleProduct(item, orderId) {
-  let sql = `INSERT INTO Phone_Db.Product_Order(Product_id_products, quantity, order_number) 
-  VALUES('${item.id}', '${item.quantity}', ${orderId})`
+  // Insert with check if stock is enough.
+  let sql = `INSERT INTO Phone_Db.Product_Order(Product_id_products, quantity, order_number)
+  SELECT '${item.id}','${item.quantity}', '${orderId}'
+  WHERE (SELECT stock FROM Phone_Db.Product WHERE id_products = ${item.id}) >= ${item.quantity}`
   let result = await sendQuery(sql)
+
+  if(result.affectedRows > 0){
+    let removeStock = `UPDATE Phone_Db.Product SET stock = stock - ${item.quantity} WHERE id_products = ${item.id}`
+    let res = await sendQuery(removeStock)
+  }
 
   return result
 }

@@ -64,6 +64,7 @@ const ShoppingCarts = (props) => {
                 img = {element.img}
                 name = {element.name}
                 amount = {element.quantity}
+                stock = {element.stock}
                 handleAmount = {changeAmount.bind(this, element.id)}
                 handleDelete = {removeItem.bind(this, element.id)}
                 key = {element.id}/>
@@ -74,7 +75,7 @@ const ShoppingCarts = (props) => {
             
                 <tr>
                   <td><Link to ='/' className="btn btn-warning"><i className="fa fa-angle-left"></i> Continue Shopping</Link></td>
-                  <td colspan="2" className="hidden-xs"></td>
+                  <td colSpan="2" className="hidden-xs"></td>
                   <td className="hidden-xs text-center"><strong>Total ${calculateTotal()}</strong></td>
                   <td><Link to='/checkout' className="btn btn-success btn-block">Checkout <i className="fa fa-angle-right"></i></Link></td>
                 </tr>
