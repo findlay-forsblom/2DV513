@@ -1,0 +1,22 @@
+.comment-data {
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 4px;
+    background: white;
+}
+
+.comments-container {
+    padding: 60px;
+}
+
+form.ui.form  input[type='text'] {
+    height:15px;
+}
+form.ui.form  input[type='number'] {
+height:15px;
+width: 30px;
+}
+form.ui.form textarea {
+height:70px;
+}

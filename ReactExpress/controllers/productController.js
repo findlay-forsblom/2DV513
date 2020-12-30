@@ -9,6 +9,15 @@ controller.getBrands = async (req, res, next) => {
   })
 }
 
+controller.getProduct = async (req, res, next) => {
+  const sql = `SELECT * FROM product WHERE id_products = ${req.params.id}`
+  console.log(sql)
+  db.query(sql, (err, results) => {
+    if (err) throw err
+    res.send(results)
+  })
+}
+
 controller.getProducts = async (req, res, next) => {
   const sql = 'SELECT * FROM product WHERE price > 250'
   db.query(sql, (err, results) => {

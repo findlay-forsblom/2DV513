@@ -1,4 +1,5 @@
 import React from 'react'
+import './comment.css'
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
 import Rating from '../../Rating/Rating'
 
@@ -16,10 +17,12 @@ const comment = (props) => (
         <Comment.Metadata>
           <div>{props.time}</div>
         </Comment.Metadata>
+        <div className="comment-data">
         <Comment.Text>{props.body}</Comment.Text>
         <Comment.Actions>
           <Rating rating={props.rating} />
         </Comment.Actions>
+        </div>
       </Comment.Content>
     </Comment>
   </Comment.Group>
