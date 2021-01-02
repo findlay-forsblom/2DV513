@@ -12,7 +12,7 @@ dataset.dropna(inplace= True)
 reviews.dropna(inplace= True)
 
 #DU kommer förmodligen behöver ändrar denna
-myDb = mysql.connector.connect(user='root',password='root123456',host='localhost', database="Phone_Db")
+myDb = mysql.connector.connect(user='root',password='',host='localhost', database="Phone_Db")
 
 
 # Brands table

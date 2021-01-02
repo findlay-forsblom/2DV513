@@ -29,7 +29,7 @@ const Comments = (props) => {
   id = window.location.href.substring(id + 1, window.location.href.length)
 
   // For review form input handling.
-  let history = useHistory()
+  let history = useHistory()  
   const [value, setValue] = useState(null);
   const handleChange = (event, {value}) => setValue(value);
 
