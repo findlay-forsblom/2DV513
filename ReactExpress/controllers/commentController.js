@@ -10,12 +10,16 @@ controller.postComment = async (req, res, next) => {
   const comment = req.body.comment
   const productId = req.body.productId
   const sql = `CALL CreateComment('${comment}', '${moment().format('YYYY-MM-D')}','${title}', ${rating}, ${productId}, '${userName}')`
-  db.query(sql, (err, result) => {
-    if(err) {
-      res.send({err: "Could not create comment."})
-    }
-    res.send({msg: "Success!"})
-  })
+  try{
+    db.query(sql, (err, result) => {
+      if(err) {
+        throw new Error("Could not create comment.")
+      }
+    })
+  }catch(err) {
+    res.send({error: err.message})
+  }
+  
   res.send({msg: "Success!"})
 }
 
