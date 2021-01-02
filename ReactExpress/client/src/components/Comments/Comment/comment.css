@@ -12,6 +12,7 @@
 
 form.ui.form  input[type='text'] {
     height:15px;
+    width: 40%;
 }
 form.ui.form  input[type='number'] {
 height:15px;
@@ -19,4 +20,13 @@ width: 30px;
 }
 form.ui.form textarea {
 height:70px;
+width: 80%;
+}
+
+.div.ui.radio.checkbox {
+  float: left;
+}
+
+form.ui.form #rating-field label{
+    word-break: break-all;
 }
