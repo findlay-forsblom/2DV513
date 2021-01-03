@@ -45,11 +45,11 @@ const Checkout = () => {
       })
     })
     .then( (response) => {
-      if(response.ok){
-        return response.json()
-      }
-      throw new Error('PROBLEM')
+      return response.json()
     }).then(res => {
+      if(res.error){
+        throw new Error(res.error)
+      }
       changeBasket(0)
       setBasket([])
       history.push({pathname: "/completeOrder",

@@ -8,11 +8,28 @@ import dateutil.parser
 
 dataset = pd.read_csv('./Dataset/Amazon_Phones_Db/items.csv', delimiter=',')
 reviews = pd.read_csv('./Dataset/Amazon_Phones_Db/reviews.csv', delimiter=',')
+comments = reviews[['title', 'body', 'date', 'rating', 'name','asin']]
+
+print('Reviews has No rows ', reviews.shape[0])
+print(dataset.shape[0])
+
+#comments = comments[comments['rating'].notna()]
+print('Reviews has No rows ', comments.shape[0])
+
+'''
+counter = 0
+for i in range(reviews.shape[0]):
+    if(reviews.iloc[i].isnull().values.any()):
+        counter = counter + 1
+
+print('Found many NAN: ', counter)
+'''
 dataset.dropna(inplace= True)
-reviews.dropna(inplace= True)
+comments.dropna(inplace= True)
+comments['name'] = comments['name'].str.replace('"', '')
 
 #DU kommer förmodligen behöver ändrar denna
-myDb = mysql.connector.connect(user='root',password='root123456',host='localhost', database="Phone_Db")
+myDb = mysql.connector.connect(user='root',password='',host='localhost', database="Phone_Db")
 
 
 # Brands table
@@ -91,9 +108,9 @@ myDb.commit()
 print('Inserted Products Table')
 
 #Reveiewers table
-reviewers = np.unique(reviews['name'].to_numpy().astype(str)).tolist()
+reviewers = np.unique(comments['name'].to_numpy().astype(str)).tolist()
 
-#Inserting reviewers to databse
+#Inserting reviewers to database
 columns = ['id_reveiwer','username']
 add_reviewers = queryGenForInsert('Reveiwer', columns)
 key = 0
@@ -110,24 +127,16 @@ print('Inserted Reviewers Table')
 
 
 #CommentsTable
-comments = reviews[['title', 'body', 'date', 'rating', 'name','asin']]
+#comments = reviews[['title', 'body', 'date', 'rating', 'name','asin']]
 columns = ['id_comment','title', 'body', 'created', 'rating', 'product_id', 'reviewer_id']
 rows = comments.shape[0]
 add_comments = queryGenForInsert('Comment', columns)
 all_comments = []
 mycursor_Select = myDb.cursor()
 
-
-
-query = 'SELECT id_products FROM Phone_Db.Product WHERE product_asin = "{}";'.format('B0029F2O3A')
-mycursor_Select.execute((query))
-records = mycursor_Select.fetchall()
-
-if records:
-    print('lol')
-
-
 key = 1
+print('Inserting into Comments table No rows:  ', rows)
+
 for i in range(rows):
     date = comments.iloc[i,2]
     timeObject = dateutil.parser.parse(date)
