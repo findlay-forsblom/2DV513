@@ -11,8 +11,8 @@ CREATE PROCEDURE CreateComment(
 )
 BEGIN 
 	DECLARE reviewer INT DEFAULT -1;
-    
     SELECT id_reveiwer INTO reviewer FROM phone_db.reveiwer WHERE username = userNameIn LIMIT 1;
+    
     IF reviewer < 0 THEN
 		INSERT INTO phone_db.reveiwer(username) VALUES (userNameIn);
         SELECT LAST_INSERT_ID() INTO reviewer;
