@@ -1,6 +1,6 @@
 import React from 'react'
 import './comment.css'
-import { Button, Comment, Form, Header } from 'semantic-ui-react'
+import { Comment } from 'semantic-ui-react'
 import Rating from '../../Rating/Rating'
 
 const styleLink = document.createElement("link");
@@ -23,7 +23,7 @@ const comment = (props) => {
   function handleClick(e) {
     // Handles show or hide comment body.
     e.preventDefault();
-    if(e.target.innerText != "Hide"){
+    if(e.target.innerText !== "Hide"){
       showBody(e.target)
       if(lastHidden) {
         hideBody(lastHidden)
@@ -40,7 +40,7 @@ const comment = (props) => {
     <Comment>
       <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
       <Comment.Content>
-        <Comment.Author as='a'>{props.name}</Comment.Author>
+        <Comment.Author as='a' href={'/reviewer?id=' + props.user_id}>{props.name}</Comment.Author>
         <Comment.Metadata>
           <div>{props.time}</div>
         </Comment.Metadata>

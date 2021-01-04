@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Home from '../components/Home/Home'
 import ShoppingCarts from '../components/ShoppingCarts/ShoppingCarts'
 import Comments from '../components/Comments/Comments'
+import Reviewer from '../components/Reviewer/Reviewer'
 import MyContext from '../contexts/Mycontext'
 import Checkout from '../components/Checkout/Checkout'
 import CompleteOrder from '../components/CompleteOrder/CompleteOrder'
@@ -41,6 +42,7 @@ class App extends Component {
           <Navbar />
           <Route path="/shoppingBasket" component = {ShoppingCarts}/>
           <Route exact path ="/" component = {Home}/>
+          <Route path= "/reviewer" component = {Reviewer}/>
           <Route path= "/comments/:id" component = {Comments}/>
           <Route path="/checkout" component ={Checkout}/>
 

@@ -4,7 +4,6 @@ import Comment from './Comment/Comment'
 import './Comment/comment.css'
 import Phones from '../Phones/Phones'
 import { Form, Button, Header, Radio } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
 
 const style = {
   height: '500px',
@@ -44,6 +43,7 @@ const Comments = (props) => {
       .then(res => res.json())
       .then(
         (result) => {
+          console.log(result)
           setComment(result)
         }
       )
@@ -128,7 +128,7 @@ const Comments = (props) => {
         {reviews.map(comment => {
           
           return <Comment
-            key={comment.id_comment} name={comment.username} body={comment.title} comment={comment.body}
+            key={comment.id_comment} name={comment.username} user_id={comment.id_reveiwer} body={comment.title} comment={comment.body}
             time={comment.created} rating={comment.rating} />
         })}
         </div>
