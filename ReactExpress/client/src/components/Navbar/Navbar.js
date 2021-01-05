@@ -1,7 +1,7 @@
 import React from 'react'
 import './Navbar.css'
 
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav } from 'react-bootstrap'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
@@ -17,7 +17,7 @@ export const navbar = (props) => {
         <Link to="/shoppingBasket">
         <MyContext.Consumer>
   {value => (
-    value.state.basket == 0 ?
+    value.state.basket === 0 ?
     null :
     <span class="badge badge-danger ml-2" id="notis" style ={{ cursor: 'pointer' }}>{value.state.basket}</span>)}
 </MyContext.Consumer>

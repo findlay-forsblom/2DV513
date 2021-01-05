@@ -4,7 +4,6 @@ import './materialize.css'
 import { Container, Row } from 'react-bootstrap'
 import Phones from '../Phones/Phones'
 import Pagination from '../Pagination/Pagination'
-import phone from '../Phones/Phone/Phone'
 
 const dict = {
   0: {
@@ -33,18 +32,13 @@ let brandID = null
 
 class Home extends Component {
   componentDidMount () {
-    window.fetch('./products')
-    .then(res => res.json())
-    .then(phones => {
-      this.setState({phones}) 
-    } 
-    )
+    this.fetchByOrder()
+
     window.fetch('./products/brands')
     .then(res => res.json())
     .then(brands => {
       this.setState({brands}) 
-    } 
-    )
+    })
   }
 
   fetchByOrder() {
@@ -137,7 +131,7 @@ class Home extends Component {
       <div className="selects">
       <label style = {style} htmlFor="cars">Phones per page</label>
       <select className = "browser-default" defaultValue="hej" id="perPage" onChange= {this.fetchByOrder.bind(this)} >
-      <option hidden={true} value="-1">Phones per page</option>
+      <option hidden={true} value="12">Phones per page</option>
         <option value="8">8</option>
         <option value="12">12</option>
         <option value="24">24</option>
