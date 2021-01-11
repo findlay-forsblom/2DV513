@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import Phone from './Phone/Phone'
 import MyContext from '../../contexts/Mycontext'
 
@@ -24,9 +24,8 @@ const Phones = (props) => {
     }
     const setBasket = contextValue.state.setItems
     let itemCounter = 0
-    console.log(items)
 
-    for(let i = 0; i<items.length; i++){
+    for (let i = 0; i < items.length; i++) {
       itemCounter += items[i].quantity
     }
     changeBasket(itemCounter)
@@ -34,8 +33,6 @@ const Phones = (props) => {
   }
 
   const allPhones = props.phones
-  //const selectedPhones = allPhones.filter((x, i) => i >= props.startIndex && i <= props.stopIndex)
-
   return (
     allPhones.map((phone) => {
       return <Phone

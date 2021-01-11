@@ -44,7 +44,6 @@ controller.getComments = async (req, res, next) => {
 
 controller.getReviewer = async (req, res, next) => {
   const reviewer = req.params.id
-  console.log(reviewer)
   const sql =
   `SELECT username, count(id_comment) as comments, min(created) as first_comment
   FROM reveiwer, comment
@@ -67,7 +66,6 @@ controller.getReviews = async (req, res, next) => {
   const reviewer = req.params.id
   const start = req.params.start
   const page = start ? start + ', ' : ''
-  console.log(reviewer, start)
   const reviewsSql =
   `
   SELECT name as product, title, comment.rating, created, body, img_url
@@ -78,7 +76,6 @@ controller.getReviews = async (req, res, next) => {
   ORDER BY created DESC
   LIMIT ${page}20;
   `
-  console.log(reviewsSql)
 
   db.query(reviewsSql, (err, reviewsRes) => {
     if (err) {

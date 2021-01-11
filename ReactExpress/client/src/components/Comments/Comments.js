@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router"
+import { useHistory } from 'react-router'
 import Comment from './Comment/Comment'
 import './Comment/comment.css'
 import Phones from '../Phones/Phones'
@@ -17,10 +17,9 @@ const phoneStyle = {
 }
 
 const Comments = (props) => {
-  function addReviewForm(e) {
+  function addReviewForm (e) {
     e.preventDefault()
-    console.log(e.target)
-    e.target.nextSibling.style = "display: block"
+    e.target.nextSibling.style = 'display: block'
     e.target.remove()
   }
   // Product id
@@ -28,14 +27,14 @@ const Comments = (props) => {
   id = window.location.href.substring(id + 1, window.location.href.length)
 
   // For review form input handling.
-  let history = useHistory()  
-  const [value, setValue] = useState(null);
-  const handleChange = (event, {value}) => setValue(value);
+  const history = useHistory()
+  const [value, setValue] = useState(null)
+  const handleChange = (event, { value }) => setValue(value)
 
   // Data handling.
   const [reviews, setComment] = useState([])
   const [phone, setPhone] = useState([])
-  
+
   useEffect(() => {
     // Fetch comments
     const str = '/comments/' + id
@@ -43,13 +42,12 @@ const Comments = (props) => {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result)
           setComment(result)
         }
       )
   }, [])
 
-  useEffect( () => {
+  useEffect(() => {
     // Fetch product
     const str = '/products/' + id
     window.fetch(str)
@@ -85,10 +83,10 @@ const Comments = (props) => {
           productId
         })
       })
-      .then( (response) => {
+      .then((response) => {
         return response.json()
       }).then(res => {
-        if(res.error){
+        if(res.error) {
           throw new Error(res.error)
         }
         history.go(0)

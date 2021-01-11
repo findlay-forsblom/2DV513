@@ -10,18 +10,18 @@ import MyContext from '../../contexts/Mycontext'
 export const navbar = (props) => {
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
-      <Navbar.Brand as={Link} to="/">React-Bootstrap</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">AmaPhone</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto"/>
         <Link to="/shoppingBasket">
-        <MyContext.Consumer>
-  {value => (
-    value.state.basket === 0 ?
-    null :
-    <span class="badge badge-danger ml-2" id="notis" style ={{ cursor: 'pointer' }}>{value.state.basket}</span>)}
-</MyContext.Consumer>
-        <FontAwesomeIcon style ={{ fontSize: '1.5em', color: 'white', cursor: 'pointer' }} icon={faShoppingCart} />
+          <MyContext.Consumer>
+            {value => (
+              value.state.basket === 0
+                ? null
+                : <span class="badge badge-danger ml-2" id="notis" style ={{ cursor: 'pointer' }}>{value.state.basket}</span>)}
+          </MyContext.Consumer>
+          <FontAwesomeIcon style ={{ fontSize: '1.5em', color: 'white', cursor: 'pointer' }} icon={faShoppingCart} />
         </Link>
         <Nav>
           <Nav.Link as={Link} to="/orderHistory">My Orders</Nav.Link>

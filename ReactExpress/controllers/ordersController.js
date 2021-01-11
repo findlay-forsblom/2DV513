@@ -57,7 +57,6 @@ async function sendQuery (sql) {
     const result = await query(sql)
     return result
   } catch (error) {
-    console.log(error)
     if (error.errno !== 1062) {
       process.exit()
     }

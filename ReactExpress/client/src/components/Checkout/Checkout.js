@@ -1,15 +1,14 @@
-import React, {useContext} from 'react'
-import { useHistory } from "react-router"
+import React, { useContext } from 'react'
+import { useHistory } from 'react-router'
 import './Checkout.css'
 import MyContext from '../../contexts/Mycontext'
 
 const Checkout = () => {
-  let history = useHistory()
+  const history = useHistory()
 
   const contextValue = useContext(MyContext)
   const basketItems = contextValue.state.items
   const total = contextValue.state.total
-  console.log(contextValue.state, "Context value")
 
   const changeBasket = contextValue.state.changeBasket
   const setBasket = contextValue.state.setItems
@@ -23,8 +22,6 @@ const Checkout = () => {
     const city = e.target.elements.city.value
     const state = e.target.elements.state.value
     const zip = e.target.elements.zip.value
-    console.log('i saving')
-    console.log(basketItems)
 
     window.fetch('./orders/createOrder', {
       method: 'post',
@@ -44,7 +41,7 @@ const Checkout = () => {
         total
       })
     })
-    .then( (response) => {
+    .then((response) => {
       return response.json()
     }).then(res => {
       if(res.error){
@@ -63,7 +60,7 @@ const Checkout = () => {
   }
   return (
     <div className="row">
-  <div className="col-75">
+      <div className="col-75">
     <div className="container">
       <form onSubmit = {save}>
 

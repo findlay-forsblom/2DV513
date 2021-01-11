@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ShoppingCart from './ShoppingCart/ShoppingCart'
 import MyContext from '../../contexts/Mycontext'
 import { Link } from 'react-router-dom'
@@ -34,7 +34,6 @@ const ShoppingCarts = (props) => {
   }
 
   const removeItem = (id) => {
-    console.log('deleting')
     let items = contextValue.state.items
     items = items.filter(item => item.id !== id)
     setItems(items)

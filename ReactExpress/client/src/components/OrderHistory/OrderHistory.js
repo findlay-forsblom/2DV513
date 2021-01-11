@@ -5,49 +5,31 @@ import MyContext from '../../contexts/Mycontext'
 const OrderHistory = (props) => {
   const contextValue = useContext(MyContext)
   const [orders, setOrders] = useState([])
-  console.log(contextValue.orderHistory)
 
-  //var email = contextValue.orderHistory
-  let email = contextValue.state.currentEmail
-  // var orders = "No orders"
-  // setOrders('No orders')
+  const email = contextValue.state.currentEmail
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch('./orders/fetchHistory', {
+    window.fetch('./orders/fetchHistory', {
       method: "post",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-    
       // Serialize json body.
       body: JSON.stringify({
         email: email
       })
     })
-    .then( (response) => {
+    .then((response) => {
       return response.json()
     }).then(res => {
       // Go to history page.
-      console.log(res)
       setOrders(res.msg)
-    });
+    })
     
   }, [])
 
-  // if(props.location.data){
-  //   email = email ? email : props.location.data.email
-  //   orders = props.location.data.orders
-  //   console.log(orders)
-  // } else {
-  //   console.log('i am here')
-  // }
-
-  // contextValue.orderHistory = email
-  // const changeCurrentEmail = contextValue.state.changeCurrentEmail
-  // changeCurrentEmail(email)
-  
   return (
   <div className="row">
     <div className="col-75">
@@ -81,10 +63,10 @@ const OrderHistory = (props) => {
   )
 }
 
-function createTableRows(orders) {
+function createTableRows (orders) {
   var rows = []
   var order = null
-  for(var i = 1; i<=orders.length; i++){
+  for (var i = 1; i <= orders.length; i++) {
     order = orders[i-1]
     let link = `/orderHistory?orderId=${order.order_number}&customer=${order.id_customer}`
     rows.push(<tr key={i}>

@@ -1,24 +1,21 @@
-import React, {useContext} from 'react'
-import { useHistory } from "react-router"
+import React, { useContext } from 'react'
+import { useHistory } from 'react-router'
 import './CompleteOrder.css'
 import MyContext from '../../contexts/Mycontext'
 
 const CompleteOrder = (props) => {
-  let history = useHistory()
+  const history = useHistory()
   const contextValue = useContext(MyContext)
-  var email = "No email available."
-  console.log(props)
-  console.log(contextValue.orderHistory)
-  console.log(contextValue.state, "THE STATE OF VALUE")
+  var email = 'No email available.'
 
-  if(props.location.state){
-    email = props.location.state.email 
+  if (props.location.state) {
+    email = props.location.state.email
     const myStorage = window.localStorage
     myStorage.setItem('currentEmail', email)
   }
 
   const insertInfo = () => {
-    if(props.location.state.error){
+    if (props.location.state.error) {
       return(<div><div class="alert alert-danger" role="alert">
       {props.location.state.error}
       </div>
@@ -37,8 +34,6 @@ const CompleteOrder = (props) => {
     const changeCurrentEmail = contextValue.state.changeCurrentEmail
     changeCurrentEmail(email)
 
-    // contextValue.orderHistory = email
-    
     // Fetch order history and go to history page.
     fetch('./orders/fetchHistory', {
       method: "post",
@@ -46,13 +41,12 @@ const CompleteOrder = (props) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-    
       // Serialize json body.
       body: JSON.stringify({
         email: email
       })
     })
-    .then( (response) => {
+    .then((response) => {
       return response.json()
     }).then(res => {
       // Go to history page.

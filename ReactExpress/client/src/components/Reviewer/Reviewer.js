@@ -1,4 +1,4 @@
-import React, { useState, useEffect, subtitle } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import Modal from 'react-modal'
 import Rating from '../Rating/Rating'
@@ -6,8 +6,8 @@ import './Reviewer.css'
 import { Link } from 'react-router-dom'
 
 const style = {
-    height: '200px',
-    width: '200px'
+  height: '200px',
+  width: '200px'
 }
 
 const userBox = {
@@ -15,98 +15,91 @@ const userBox = {
 }
 
 const infoBox = {
-    width: '200px'
+  width: '200px'
 }
 
-let numRowsTable = 0
-
 const Reviewer = (props) => {
-    Modal.setAppElement('body')
+  Modal.setAppElement('body')
 
-    // Data handling.
-    const [reviewer, setReviewer] = useState([])
-    const [reviews, setReviews] = useState([])
-    const [currentReview, setCurrent] = useState([])
-    
-    const params = new URLSearchParams(props.location.search)
-    const reviewerId = params.get('id')
-    
-    useEffect(() => {
-        // Fetch review
-        const str = '/comments/reviewer/' + reviewerId
-        window.fetch(str)
-        .then(res => res.json())
-        .then(
-            (result) => {
-            setReviewer(result[0])
-            //setReviews(result.reviews)
-            }
-        )
-    }, [])
+  // Data handling.
+  const [reviewer, setReviewer] = useState([])
+  const [reviews, setReviews] = useState([])
+  const [currentReview, setCurrent] = useState([])
 
-    useEffect(() => {
-        const str = `/comments/reviewer/${reviewerId}/${0}`
-        window.fetch(str)
-        .then(res => res.json())
-        .then(
-            (result) => {
-            setReviews(result)
-            }
-        )
-    }, [])
+  const params = new URLSearchParams(props.location.search)
+  const reviewerId = params.get('id')
 
-    let fetchReviews = (start, event) => {
-        console.log(start)
-        // Fetch review
-        const str = `/comments/reviewer/${reviewerId}/${start}`
-        window.fetch(str)
-        .then(res => res.json())
-        .then(
-            (result) => {
-            setReviews(reviews.concat(result))
-            }
-        )
-    }
-
-    let createTableRows = (reviews) => {
-        // Create each review row for table output.
-        var rows = []
-        var review = null
-        for(var i = 1; i<=reviews.length; i++){
-        review = reviews[i-1]
-        rows.push(<tr key={i} onClick={openModal.bind(this, review)} id="data-row">
-            <th scope="row">{i}</th>
-            <td>{review.product}</td>
-            <td>{review.title}</td>
-            <td>{review.rating}</td>
-            <td>{moment(review.created).utc().format('DD/MM/YYYY')}</td>
-        </tr>)
-        }  
-        return rows
-    }
-
-    // Functions and objects for modal.
-    const customStyles = {
-        content : {
-        top                   : '50%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)',
-        maxWidth              : '400px'
+  useEffect(() => {
+    // Fetch review
+    const str = '/comments/reviewer/' + reviewerId
+    window.fetch(str)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setReviewer(result[0])
+        // setReviews(result.reviews)
         }
-    };
+      )
+  }, [])
+
+  useEffect(() => {
+    const str = `/comments/reviewer/${reviewerId}/${0}`
+    window.fetch(str)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setReviews(result)
+        }
+      )
+  }, [])
+
+  const fetchReviews = (start, event) => {
+    // Fetch review
+    const str = `/comments/reviewer/${reviewerId}/${start}`
+    window.fetch(str)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setReviews(reviews.concat(result))
+        }
+      )
+  }
+
+  const createTableRows = (reviews) => {
+    // Create each review row for table output.
+    var rows = []
+    var review = null
+    for (var i = 1; i <= reviews.length; i++) {
+      review = reviews[i - 1]
+      rows.push(<tr key={i} onClick={openModal.bind(this, review)} id='data-row'>
+        <th scope='row'>{i}</th>
+        <td>{review.product}</td>
+        <td>{review.title}</td>
+        <td>{review.rating}</td>
+        <td>{moment(review.created).utc().format('DD/MM/YYYY')}</td>
+      </tr>)
+    }
+    return rows
+  }
+
+  // Functions and objects for modal.
+  const customStyles = {
+    content: {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)',
+      maxWidth              : '400px'
+    }
+  };
 
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
-    function openModal(review, event) {
+    function openModal (review, event) {
         setCurrent(review)
-        setIsOpen(true);
-    }
-    
-    function afterOpenModal() {
-        subtitle.style.color = '#f00';
+        setIsOpen(true)
     }
 
     function closeModal(){
@@ -176,7 +169,5 @@ const Reviewer = (props) => {
         </div>
     )
 }
-
-
 
 export default Reviewer
