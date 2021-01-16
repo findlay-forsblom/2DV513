@@ -5,23 +5,23 @@ from random import randrange
 from datetime import datetime
 import re
 import dateutil.parser
+import warnings
+warnings.filterwarnings("ignore")
+
+# Insert your mysql username and password
+db_username = 'root'
+db_password = ''
 
 dataset = pd.read_csv('./Dataset/Amazon_Phones_Db/items.csv', delimiter=',')
 reviews = pd.read_csv('./Dataset/Amazon_Phones_Db/reviews.csv', delimiter=',')
 comments = reviews[['title', 'body', 'date', 'rating', 'name','asin']]
 
-print('Reviews has No rows ', reviews.shape[0])
-print(dataset.shape[0])
-
-#comments = comments[comments['rating'].notna()]
-print('Reviews has No rows ', comments.shape[0])
-
 dataset.dropna(inplace= True)
 comments.dropna(inplace= True)
 comments['name'] = comments['name'].str.replace('"', '')
 
-#DU kommer förmodligen behöver ändrar denna
-myDb = mysql.connector.connect(user='root',password='',host='localhost', database="Phone_Db")
+# Change 
+myDb = mysql.connector.connect(user=db_username, password=db_password,host='localhost', database="Phone_Db")
 
 
 # Brands table
@@ -62,8 +62,6 @@ columns = ['idBrand','name']
 add_brands = queryGenForInsert('Brand', columns)
 key = 0
 all_brands = []
-
-lol = [('ASUS'), ('Apple'), ('Samsung')]
 
 for i in brands:
     key+=1
@@ -154,9 +152,3 @@ myDb.commit()
 print('Inserted Comments Table')
 print('All Insert Complete Closing Database Connection')
 myDb.close()
-
-
-
-
-
-

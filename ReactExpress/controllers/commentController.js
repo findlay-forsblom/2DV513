@@ -53,7 +53,7 @@ controller.getReviewer = async (req, res, next) => {
   try {
     db.query(sql, (err, result) => {
       if (err) {
-        throw new Error('Could not create comment.')
+        throw new Error('Could not get reviewer data.')
       }
       res.send(result)
     })
@@ -66,18 +66,18 @@ controller.getReviews = async (req, res, next) => {
   const reviewer = req.params.id
   const start = req.params.start
   const page = start ? start + ', ' : ''
-  const reviewsSql =
-  `
+
+  const reviewsSql = `
   SELECT name as product, title, comment.rating, created, body, img_url
-  FROM comment, product
-  WHERE product_id = id_products AND id_reveiwer = ${reviewer}
+  FROM  comment, product
+  WHERE product_id = id_products AND
+  reviewer_id = ${reviewer}
   ORDER BY created DESC
-  LIMIT ${page}20;
-  `
+  LIMIT ${page}20;`
 
   db.query(reviewsSql, (err, reviewsRes) => {
     if (err) {
-      throw new Error('Could not create comment.')
+      throw new Error('Could not get reviews.')
     }
     reviewsRes.forEach(element => {
       element.title = unescape(element.title.replace(regex, ''))

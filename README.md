@@ -21,3 +21,6 @@ You will need to have the following tools and applications installed in your sys
 4. Do the same under the client folder in the ReactExpress folder.
 5. Start the server (./ReactExpress) using with `npm start` do the same for the client (./ReactExpress/client).
 6. Navigate to localhost 3000
+
+### Queries
+The queries used by the server can be found in the different controllers in the ./ReactExpress/controllers folder.

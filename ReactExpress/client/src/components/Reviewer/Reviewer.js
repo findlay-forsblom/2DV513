@@ -37,7 +37,6 @@ const Reviewer = (props) => {
       .then(
         (result) => {
           setReviewer(result[0])
-        // setReviews(result.reviews)
         }
       )
   }, [])
