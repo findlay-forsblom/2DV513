@@ -13,7 +13,7 @@ You will need to have the following tools and applications installed in your sys
  ### Installation
 
  1. Use the script Phone_db_schema.sql found under Database/Schema to create the database.
- 2. Use the script import_data.py to populate the database. You will need to change to the username and password of ur mysql database.
+ 2. Use the script import_data.py to populate the database. You will need to change to the username and password to that of your mysql database in the script.
  3. Inside the ReactExpress folder Install NPM packages
    ```sh
    npm install
