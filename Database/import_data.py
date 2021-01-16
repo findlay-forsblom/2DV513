@@ -16,14 +16,6 @@ print(dataset.shape[0])
 #comments = comments[comments['rating'].notna()]
 print('Reviews has No rows ', comments.shape[0])
 
-'''
-counter = 0
-for i in range(reviews.shape[0]):
-    if(reviews.iloc[i].isnull().values.any()):
-        counter = counter + 1
-
-print('Found many NAN: ', counter)
-'''
 dataset.dropna(inplace= True)
 comments.dropna(inplace= True)
 comments['name'] = comments['name'].str.replace('"', '')
@@ -34,7 +26,6 @@ myDb = mysql.connector.connect(user='root',password='',host='localhost', databas
 
 # Brands table
 brands = np.unique(dataset['brand'].to_numpy( dtype='S').astype(str)).tolist()
-
 
 def testIfAscii(str):
     try:
@@ -82,8 +73,6 @@ cursor.executemany(add_brands, all_brands)
 myDb.commit()
 print('Inserted All Brands')
 
-
-
 #Products table
 products = dataset[['asin', 'title', 'image', 'rating', 'price','brand']]
 rows = products.shape[0]
@@ -127,7 +116,6 @@ print('Inserted Reviewers Table')
 
 
 #CommentsTable
-#comments = reviews[['title', 'body', 'date', 'rating', 'name','asin']]
 columns = ['id_comment','title', 'body', 'created', 'rating', 'product_id', 'reviewer_id']
 rows = comments.shape[0]
 add_comments = queryGenForInsert('Comment', columns)
@@ -135,7 +123,6 @@ all_comments = []
 mycursor_Select = myDb.cursor()
 
 key = 1
-print('Inserting into Comments table No rows:  ', rows)
 
 for i in range(rows):
     date = comments.iloc[i,2]

@@ -8,20 +8,3 @@ LEFT JOIN
     FROM phone_db.product_order 
     GROUP BY phone_db.product_order.order_number) AS quantities 
     ON quantities.order_number = phone_db.order.order_number;
-
-
-
-
-
-#1
-
-SELECT * FROM Phone_Db.Product WHERE price > 0 ORDER BY price DESC LIMIT 0, 12;
-
-#2 
-
-SELECT * FROM Phone_Db.Product WHERE price > 0 ORDER BY price DESC LIMIT 16, 8;
-
-#3
-
-SELECT * FROM Phone_Db.Product WHERE price > 0 AND brand = 'Apple' ORDER BY price DESC LIMIT 16, 8;
-
