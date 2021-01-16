@@ -28,7 +28,7 @@ controller.getComments = async (req, res, next) => {
   `SELECT title, body, created, rating, Cust.username, Cust.id_reveiwer, Com.product_id, Com.id_comment 
   FROM Phone_Db.Comment as Com
   JOIN Reveiwer as Cust on Cust.id_reveiwer = Com.reviewer_id
-  Where Com.product_id = ${id}
+  WHERE Com.product_id = ${id}
   ORDER BY created DESC;`
 
   db.query(sql, (err, results) => {
@@ -69,10 +69,8 @@ controller.getReviews = async (req, res, next) => {
   const reviewsSql =
   `
   SELECT name as product, title, comment.rating, created, body, img_url
-  FROM reveiwer, comment, product
-  WHERE reviewer_id = id_reveiwer AND 
-  product_id = id_products AND
-  id_reveiwer = ${reviewer}
+  FROM comment, product
+  WHERE product_id = id_products AND id_reveiwer = ${reviewer}
   ORDER BY created DESC
   LIMIT ${page}20;
   `

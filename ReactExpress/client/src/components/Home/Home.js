@@ -85,7 +85,7 @@ class Home extends Component {
 
   changeCurrentPage = (event) =>{
     const page = event.target.innerText
-    const start = (page - 1) * 8
+    const start = (page - 1) * 12
     this.setState({
       currentPage: parseInt(page, 10),
       startIndex: start
